@@ -1,38 +1,19 @@
 //we need a runGame, player and gameboard object
 
 
-
-/* const gameboard = function(){ //add imm exec later
+function gameboard() {
     const rows = 3;
     const columns = 3;
+    const board = [];
 
-    let board = [];
-    return board = function(rows, columns){
-        for (let i = 0; i > rows; i++){
-            board[i] = {
-                x: i + 1
-            };
-            console.log(board[i].x);
+    for (let y = 1; y <= rows; y++) {
+        for (let x = 1; x <= columns; x++){
+            console.log(y);
+            board.push({x,y});
         }
-        return board;
     }
-}
-const game1 = gameboard();
-console.log(game1);
-console.log("test!"); */
-
-let board = [];
-
-const rows = 3;
-const colunums = 3;
-
-function populateRows(rows, columns){
-    for (let i = 0; i > rows; i++){
-        board[i] = {
-            x: i + 1
-        };
-    }
+    return board;
 }
 
-const game1 = populateRows(3, 3);
-console.log
+
+console.log(gameboard());
