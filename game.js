@@ -46,7 +46,7 @@ function playGame(){
     function makeMove(x, y, player){
     
         board[`x${x}y${y}`].state = 1;
-        board[player.name].push(`x${x}y${y}`);
+        board[player.name].push({x, y});
         //console.log(board[`x${x}y${y}`]);
         checkWin(x, y, player);
         switchPlayer();
@@ -67,12 +67,17 @@ function playGame(){
     
        function checkWin(x, y, player){
         console.log(board[player.name]);
-       board[player.name].forEach(element => {
-        if ((board[player.name].includes(`x${x + 1}y${y}`) && board[player.name].includes(`x${x + 2}y${y}`))
+       board[player.name].forEach(baseCoord => {
+        console.log(baseCoord.x, baseCoord.y);
+        if (board[player.name].find(element => element.x == baseCoord.x + 1&& element.y == baseCoord.y) && 
+            board[player.name].find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y)) {
+            alert("ha!");
+        }
+        /* if ((board[player.name].includes(`x${x + 1}y${y}`) && board[player.name].includes(`x${x + 2}y${y}`))
         || (board[player.name].includes(`x${x}y${y + 1}`) && board[player.name].includes(`x${x}y${y + 2}`))
         || (board[player.name].includes(`x${x + 1}y${y + 1}`) && board[player.name].includes(`x${x + 2}y${y + 2}`))
         || (board[player.name].includes(`x${x + 1}y${y - 1}`) && board[player.name].includes(`x${x + 2}y${y - 2}`)))
-            alert(player.name + " has won");
+            alert(player.name + " has won"); */
            
         });  
     //const filteredX = Object.keys(board.map)//.filter(isX);
