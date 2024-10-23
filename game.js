@@ -6,27 +6,42 @@
 function gameboard() {
     const rows = 3;
     const columns = 3;
-    const board = [];
+    const board = {};
 
     for (let y = 1; y <= rows; y++) {
         for (let x = 1; x <= columns; x++){
-            console.log(y);
-            board.push({x,y});
+            const coordinate = `x${x}y${y}`;
+            board[coordinate] = {x, y};
         }
     }
     return board;
 }
 
  
-console.log(gameboard());
+/* console.log(gameboard()); */
 
-function makePlayer(name){
+
+function MakePlayer(name){
     let score = 0;
     const getScore = () => score;
     const upScore = () => score++;
     return {name, getScore, upScore};
 }
 
-newPlayer = makePlayer("myname");
-console.log(newPlayer);
+Player1 = MakePlayer("Player1");
+Player2 = MakePlayer("Player2");
+/* console.log(Player1); */
 
+const board = gameboard();
+
+console.log(board.x1y2.x);
+
+/* let testArray = ["x1y2", "x2y3"];
+console.log(testArray[1]); */
+
+//player chooses x2 y3
+//player chooses x3 
+
+/* function makeMove(x, y){
+    
+} */
