@@ -46,7 +46,7 @@ function playGame(){
     function makeMove(x, y, player){
     
         board[`x${x}y${y}`].state = 1;
-        board[player.name].push({x, y});
+        board[player.name].push(`x${x}y${y}`);
         //console.log(board[`x${x}y${y}`]);
         checkWin(x, y, player);
         switchPlayer();
@@ -56,20 +56,25 @@ function playGame(){
         currentPlayer == player1 ? currentPlayer = player2 : currentPlayer = player1; 
 /*         console.log(currentPlayer); */
         }
-
-/*        makeMove(1, 2, currentPlayer);
+        makeMove(1, 2, currentPlayer);
          makeMove(3, 3, currentPlayer);
        makeMove(3, 2, currentPlayer);
-         makeMove(3, 1, currentPlayer); */
+         makeMove(3, 1, currentPlayer); 
        makeMove(2, 2, currentPlayer);
   
 
 
+    
        function checkWin(x, y, player){
-        console.log(element);
-     /*    player.name.forEach(element => {
+        console.log(board[player.name]);
+       board[player.name].forEach(element => {
+        if ((board[player.name].includes(`x${x + 1}y${y}`) && board[player.name].includes(`x${x + 2}y${y}`))
+        || (board[player.name].includes(`x${x}y${y + 1}`) && board[player.name].includes(`x${x}y${y + 2}`))
+        || (board[player.name].includes(`x${x + 1}y${y + 1}`) && board[player.name].includes(`x${x + 2}y${y + 2}`))
+        || (board[player.name].includes(`x${x + 1}y${y - 1}`) && board[player.name].includes(`x${x + 2}y${y - 2}`)))
+            alert(player.name + " has won");
            
-        }); */
+        });  
     //const filteredX = Object.keys(board.map)//.filter(isX);
     //console.log(filteredX);
         
