@@ -4,7 +4,5 @@
     background-image: linear-gradient(to bottom, transparent 95%, #000000 95%),
                     linear-gradient(to right, #ffffff 95%, #000000 95%);
   background-size: 20px 20px, 20px 20px;
-/*     background:
-    conic-gradient(from 90deg at 2px 2px,
-      red 90deg,#0000 0) -2px -2px/50px 50px; */
+
 }
