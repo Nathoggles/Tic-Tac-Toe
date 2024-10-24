@@ -56,11 +56,11 @@ function playGame(){
         currentPlayer == player1 ? currentPlayer = player2 : currentPlayer = player1; 
 /*         console.log(currentPlayer); */
         }
-        makeMove(1, 2, currentPlayer);
+   /*      makeMove(1, 2, currentPlayer);
          makeMove(3, 3, currentPlayer);
        makeMove(3, 2, currentPlayer);
          makeMove(3, 1, currentPlayer); 
-       makeMove(2, 2, currentPlayer);
+       makeMove(2, 2, currentPlayer); */
   
 
 
