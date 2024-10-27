@@ -143,9 +143,25 @@
 }
 
 .cell:hover {
-  background-color: rgba(10, 10, 10, 0.404);
+  background-color: rgba(10, 10, 10, 0.15);
 }
 
 .cell:active {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(14, 14, 14, 0.3);
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 70%;
+  margin-top: 3vh;
+}
+
+.signature {
+  margin-left: auto;
+}
+
+a {
+  color: black;
 }

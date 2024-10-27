@@ -43,12 +43,12 @@ function playGame(){
    
 
 
-    function makeMove(x, y, player){
+    function makeMove(x, y){
     
         board[`x${x}y${y}`].state = 1;
-        board[player.name].push({x, y});
+        board[currentPlayer.name].push({x, y});
         //console.log(board[`x${x}y${y}`]);
-        checkWin(x, y, player);
+        checkWin(x, y, currentPlayer);
         switchPlayer();
     } 
 
@@ -56,12 +56,7 @@ function playGame(){
         currentPlayer == player1 ? currentPlayer = player2 : currentPlayer = player1; 
 /*         console.log(currentPlayer); */
         }
-   /*      makeMove(1, 2, currentPlayer);
-         makeMove(3, 3, currentPlayer);
-       makeMove(3, 2, currentPlayer);
-         makeMove(3, 1, currentPlayer); 
-       makeMove(2, 2, currentPlayer); */
-  
+
 
 
     
@@ -82,48 +77,29 @@ function playGame(){
         }
         
         });  
-    //const filteredX = Object.keys(board.map)//.filter(isX);
-    //console.log(filteredX);
-        
+  } 
+return {
+    makeMove,
+    switchPlayer,
+    checkWin
+}
+}
 
-  /*       const directions = [
-            {dx: 1, dy: 0}, //right
-            {dx: 0, dy: 1}, //down
-            {dx: 1, dy: 1}, //down-right
-            {dx: 1, dy: -1} //down-left
-        ]
-        console.log(board);
-        Object.keys(board).forEach(key => {
-            if (board[key].state == player) {
-                if (board[key])
-            }
-        }
-            
-            console.log(board[key].x, board[key].y)); */
-/*     for ({dx, dy} of directions){
 
-    }  */
-    
-      /*   function countCells(dx, dy)
-        {
-            let count = 0;
-            let nx = x;
-            let ny = y;
-            while (board)
-        } */
 
-       }
-       
-  /*       let currentCell = [`x${x}y${y}`];
-        console.log(currentCell); */
-        /* if (board[`x${x + 1}y${y}`].state == player && board[`x${x - 1}y${y}`].state == player ||
-            board[`x${x - 1}y${y - 1}`].state == player && board[`x${x - 2 }y${y - 2}`].state == player
-            //pontentially a lot of win conditions to check
 
-        ) */
-       
-            //alert(player.name + " has won")}; 
+function displayGame(){
 
-    }
+}
 
-playGame();
+displayGame();
+/* playGame(); */
+const game = playGame();
+
+
+        game.makeMove(1, 2);
+         game.makeMove(3, 3);
+       game.makeMove(3, 2);
+         game.makeMove(3, 1); 
+       game.makeMove(2, 2);
+  
