@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Handlee&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="mycssbasis.css" rel="stylesheet" type="text/css">
     <script src="game.js" defer></script>
@@ -12,12 +17,22 @@
     <div class = "allcontainer">
         <div class = "header">
             <div class = "playerContainer">
-                <div class = "player1">Player 1</div>
-                <div class = "changeName">change name</div>
+                <div class = "player1 player">Player 1
+                    <svg class="underline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
+                        <path d="M 0 5 Q 25 2, 100 5" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"
+                              stroke-dasharray="100" stroke-dashoffset="100"></path>
+                    </svg>
+                </div>
+                <div class = "changeName">(change name)</div>
             </div>
             <div class = "playerContainer">
-                <div class = "player2">Player 2</div>
-                <div class = "changeName">change name</div>
+                <div class = "player2 player">Player 2
+                    <svg class="underline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
+                        <path d="M 0 5 Q 25 2, 100 5" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"
+                              stroke-dasharray="100" stroke-dashoffset="100"></path>
+                    </svg>
+                </div>
+                <div class = "changeName">(change name)</div>
             </div>
         </div>
             <div class = "board">

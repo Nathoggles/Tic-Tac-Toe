@@ -1,8 +1,147 @@
+
+.caveat-regular {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.handlee-regular {
+  font-family: "Handlee", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+:root{
+  font-family: "Caveat", "Handlee", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --base-size: clamp(1rem, 1rem + 1vw, 3.2rem);
+}
+
 .allcontainer {
     height: 100vh;
     width: 100vw;
-    background-image: linear-gradient(to bottom, transparent 95%, #000000 95%),
-                    linear-gradient(to right, #ffffff 95%, #000000 95%);
+    background-image: linear-gradient(to bottom, transparent 95%, rgb(133, 133, 133) 95%),
+                    linear-gradient(to right, #ffffff 95%, rgb(133, 133, 133) 95%);
   background-size: 20px 20px, 20px 20px;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
+
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin-bottom: 5vh;
+
+}
+
+.playerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.2;
+  padding: 0;
+  position: relative;
+
+}
+.player {
+  font-size: calc(var(--base-size) * 2.3);
+  font-weight: 400;
+  position: relative;
+}
+
+
+.underline-svg {
+  position: absolute;
+  bottom: -5px; /* Adjust position as needed */
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 1;
+}
+
+.underline-svg path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+.animate-draw path {
+  animation: draw-line 0.7s ease forwards;
+}
+
+/* Animation keyframes */
+@keyframes draw-line {
+  0% {
+    stroke-dashoffset: 100; /* Start with dash offset equal to path length */
+  }
+  100% {
+    stroke-dashoffset: 0; /* Draw line completely */
+  }
+}
+
+
+.changeName {
+  font-size: calc(var(--base-size) * 1.2);
+  text-decoration: underline;
+  font-weight: 400;
+}
+.board {
+  width: 60%;
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  justify-content: center;
+  align-items: center;
+
+ 
+  --gap: 2em;
+  --line-offset: calc(var(--gap) / 2);
+  --line-thickness: 0.3rem;
+  --line-color: black;
+}
+
+
+.board > * {
+  position: relative; /* Parent must be positioned for aboslute positioning of pseudo-elements to work */
+  overflow: visible; /* overflow: hidden will hide borders */
+  background-color: #ccc;
+}
+.cell {
+  appearance: none;
+  background: none;
+ /*  border: none; */
+  cursor: pointer;
+  aspect-ratio: 1;
+  font-size: 2rem;
+ 
+/*   position: relative; */
+}
+
+/* .cell::before, 
+.cell::after {
+   content: '';
+   position: absolute;
+   background-color: var(--line-color);
+   z-index: 1;
+}
+
+.cell::after{
+  inline-size: 100vw;
+  block-size: var(--line-thickness);
+  inset-inline-start: 0;
+  inset-block-start: calc(var(--line-offset) * -1);
+}
+
+.cell::before{
+  inline-size: var(--line-thickness);
+  block-size: 100vh;
+  inset-inline-start: calc(var(--line-offset) * -1);
+} */
