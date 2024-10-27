@@ -26,13 +26,14 @@ const gameboard = (function() {
 
 function playGame(x, y){
     const board = gameboard.makeBoard(x,y);
+    /* console.log(board); */
     
     function MakePlayer(name){
         let score = 0;
         const getScore = () => score;
         const upScore = () => score++;
-        board[name] = []; //array to track each player's moves
-        return {name, getScore, upScore};
+        const moves = []; //array to track each player's moves
+        return {name, moves, getScore, upScore};
     }
     player1 = MakePlayer("Player1");
     player2 = MakePlayer("Player2");
@@ -44,9 +45,10 @@ function playGame(x, y){
 
 
     function makeMove(x, y){
-    
+        //console.log(board);
         board[`x${x}y${y}`].state = 1;
-        board[currentPlayer.name].push({x, y});
+        currentPlayer.moves.push({x, y});
+        console.table(currentPlayer.moves);
         //console.log(board[`x${x}y${y}`]);
         checkWin(x, y, currentPlayer);
         switchPlayer();
@@ -61,23 +63,24 @@ function playGame(x, y){
 
     
        function checkWin(x, y, player){
-        console.log(board[player.name]);
-       board[player.name].forEach(baseCoord => {
-        console.log(baseCoord.x, baseCoord.y);
-        if ((board[player.name].find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y) && 
-            board[player.name].find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y))
-        || (board[player.name].find(element => element.x == baseCoord.x && element.y == baseCoord.y + 1) && 
-            board[player.name].find(element => element.x == baseCoord.x && element.y == baseCoord.y + 2))
-        || (board[player.name].find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y + 1) && 
-            board[player.name].find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y + 2))
-        || (board[player.name].find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y - 1) && 
-            board[player.name].find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y - 2)))
+       /*  console.log(board[player.name]); */
+       player.moves.forEach(baseCoord => {
+        /* console.log(baseCoord.x, baseCoord.y); */
+        if ((player.moves.find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y) && 
+            player.moves.find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y))
+        || (player.moves.find(element => element.x == baseCoord.x && element.y == baseCoord.y + 1) && 
+            player.moves.find(element => element.x == baseCoord.x && element.y == baseCoord.y + 2))
+        || (player.moves.find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y + 1) && 
+            player.moves.find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y + 2))
+        || (player.moves.find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y - 1) && 
+            player.moves.find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y - 2)))
            {
             alert(player.name + " has won");
         }
         
         });  
   } 
+
 return {
     makeMove,
     switchPlayer,
@@ -92,10 +95,11 @@ return {
 
 
 function displayGame(){
-    const initialGame = playGame(3, 3);
+   
 
     const displayedBoard = document.querySelector(".board");
-
+    
+    const initialGame = playGame(3, 3);
 
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
@@ -107,18 +111,20 @@ function displayGame(){
         removeAllChildNodes(displayedBoard);
 
         Object.keys(board).forEach((key) => {
-            console.log(board[key]);
 
             const cellButton = document.createElement("button");
             cellButton.classList.add("cell");
-            cellButton.dataset.x = board.x;
-            cellButton.dataset.y = board.y;
+            cellButton.dataset.x = board[key].x;
+            cellButton.dataset.y = board[key].y;
             displayedBoard.appendChild(cellButton);
 
         });
     }
 
 displayBoard(initialGame.board);
+/* console.log(initialGame); */
+
+
 
 /*     const initialGame = function(){
         playGame(3, 3);
@@ -153,7 +159,7 @@ const gameboard = (function() {
 
 displayGame();
 /* playGame(); */
-/* const game = playGame();
+const game = playGame(3, 3);
 
 
         game.makeMove(1, 2);
@@ -161,4 +167,4 @@ displayGame();
        game.makeMove(3, 2);
          game.makeMove(3, 1); 
        game.makeMove(2, 2);
-   */
+   
