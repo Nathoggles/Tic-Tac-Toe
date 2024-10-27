@@ -120,6 +120,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  font-size: calc(var(--base-size) * 5);
 
 }
 
