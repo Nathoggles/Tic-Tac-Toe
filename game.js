@@ -24,8 +24,8 @@ const gameboard = (function() {
 /* console.log(gameboard.makeBoard(3, 3)); */
 
 
-function playGame(){
-    const board = gameboard.makeBoard(3,3);
+function playGame(x, y){
+    const board = gameboard.makeBoard(x,y);
     
     function MakePlayer(name){
         let score = 0;
@@ -81,7 +81,10 @@ function playGame(){
 return {
     makeMove,
     switchPlayer,
-    checkWin
+    checkWin,
+    player1,
+    player2,
+    board
 }
 }
 
@@ -89,12 +92,68 @@ return {
 
 
 function displayGame(){
+    const initialGame = playGame(3, 3);
+
+    const displayedBoard = document.querySelector(".board");
+
+
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }; 
+
+    function displayBoard(board) {
+        removeAllChildNodes(displayedBoard);
+
+        Object.keys(board).forEach((key) => {
+            console.log(board[key]);
+
+            const cellButton = document.createElement("button");
+            cellButton.classList.add("cell");
+            cellButton.dataset.x = board.x;
+            cellButton.dataset.y = board.y;
+            displayedBoard.appendChild(cellButton);
+
+        });
+    }
+
+displayBoard(initialGame.board);
+
+/*     const initialGame = function(){
+        playGame(3, 3);
+        
+    }();
+    
+    
+    playGame(3, 3);
+    initialGame();    
+ */
+    
+/* 
+const gameboard = (function() {
+    const makeBoard = (x, y) => {
+    const rows = x;
+    const columns = y;
+    const board = {};
+
+    for (let y = 1; y <= rows; y++) {
+        for (let x = 1; x <= columns; x++){
+            const coordinate = `x${x}y${y}`;
+            board[coordinate] = {x, y};
+            board[coordinate].state = 0;
+        }
+    }
+    return board;}
+    return {makeBoard};
+})(); */
+
 
 }
 
 displayGame();
 /* playGame(); */
-const game = playGame();
+/* const game = playGame();
 
 
         game.makeMove(1, 2);
@@ -102,4 +161,4 @@ const game = playGame();
        game.makeMove(3, 2);
          game.makeMove(3, 1); 
        game.makeMove(2, 2);
-  
+   */
