@@ -93,55 +93,59 @@
   text-decoration: underline;
   font-weight: 400;
 }
+
+
 .board {
-  width: 60%;
+  width: 50%;
   aspect-ratio: 1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 1fr));
-  justify-content: center;
-  align-items: center;
-
- 
-  --gap: 2em;
-  --line-offset: calc(var(--gap) / 2);
-  --line-thickness: 0.3rem;
-  --line-color: black;
+  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+  box-sizing: border-box;
+  background: transparent;
 }
 
-
-.board > * {
-  position: relative; /* Parent must be positioned for aboslute positioning of pseudo-elements to work */
-  overflow: visible; /* overflow: hidden will hide borders */
-  background-color: #ccc;
-}
 .cell {
   appearance: none;
-  background: none;
- /*  border: none; */
+  background: transparent;
+  border: none;
   cursor: pointer;
   aspect-ratio: 1;
   font-size: 2rem;
- 
-/*   position: relative; */
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-/* .cell::before, 
-.cell::after {
-   content: '';
-   position: absolute;
-   background-color: var(--line-color);
-   z-index: 1;
+
+.board::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, transparent 33.33%, black 33.33%, black calc(33.33% + 0.3rem), transparent calc(33.33% + 0.3rem)),
+    linear-gradient(to right, transparent 66.66%, black 66.66%, black calc(66.66% + 0.3rem), transparent calc(66.66% + 0.3rem)),
+    linear-gradient(to bottom, transparent 33.33%, black 33.33%, black calc(33.33% + 0.3rem), transparent calc(33.33% + 0.3rem)),
+    linear-gradient(to bottom, transparent 66.66%, black 66.66%, black calc(66.66% + 0.3rem), transparent calc(66.66% + 0.3rem));
+  pointer-events: none;
 }
 
-.cell::after{
-  inline-size: 100vw;
-  block-size: var(--line-thickness);
-  inset-inline-start: 0;
-  inset-block-start: calc(var(--line-offset) * -1);
+
+.cell:focus {
+  outline: 2px solid #003366;
+  outline-offset: -2px;
+  z-index: 1;
 }
 
-.cell::before{
-  inline-size: var(--line-thickness);
-  block-size: 100vh;
-  inset-inline-start: calc(var(--line-offset) * -1);
-} */
+.cell:hover {
+  background-color: rgba(10, 10, 10, 0.404);
+}
+
+.cell:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
