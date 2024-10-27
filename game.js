@@ -30,10 +30,11 @@ function playGame(x, y){
     
     function MakePlayer(name){
         let score = 0;
+        const id = name;
         const getScore = () => score;
         const upScore = () => score++;
         const moves = []; //array to track each player's moves
-        return {name, moves, getScore, upScore};
+        return {name, id, moves, getScore, upScore};
     }
     player1 = MakePlayer("Player1");
     player2 = MakePlayer("Player2");
@@ -41,7 +42,7 @@ function playGame(x, y){
 
 
 
-   
+    const getCurrentPlayer = () => currentPlayer.id;
 
 
     function makeMove(x, y){
@@ -49,7 +50,9 @@ function playGame(x, y){
         board[`x${x}y${y}`].state = 1;
         currentPlayer.moves.push({x, y});
         console.table(currentPlayer.moves);
+        alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
         //console.log(board[`x${x}y${y}`]);
+        //console.table(currentPlayer.moves);
         checkWin(x, y, currentPlayer);
         switchPlayer();
     } 
@@ -63,9 +66,8 @@ function playGame(x, y){
 
     
        function checkWin(x, y, player){
-       /*  console.log(board[player.name]); */
+  /*      console.table(player.moves);
        player.moves.forEach(baseCoord => {
-        /* console.log(baseCoord.x, baseCoord.y); */
         if ((player.moves.find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y) && 
             player.moves.find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y))
         || (player.moves.find(element => element.x == baseCoord.x && element.y == baseCoord.y + 1) && 
@@ -78,13 +80,34 @@ function playGame(x, y){
             alert(player.name + " has won");
         }
         
-        });  
+        });   */
+
+
+        const winningPatterns = [
+            //horizontal
+            [{dx: 0, dy: 0}, {dx: 1, dy: 0}, {dx: 2, dy: 0}],
+            [{dx: -1, dy: 0}, {dx: 0, dy: 0}, {dx: 1, dy: 0}],
+            [{dx: -2, dy: 0}, {dx: -1, dy: 0}, {dx: 0, dy: 0}],
+
+            //vertical
+            [{dx: 0, dy: 0}, {dx: 0, dy: 1}, {dx: 0, dy: 2}],
+            [{dx: 0, dy: -1}, {dx: 0, dy: 0}, {dx: 0, dy: 1}],
+            [{dx: 0, dy: -2}, {dx: 0, dy: -1}, {dx: 0, dy: 0}],
+
+            //diagonal  
+            [{dx: 0, dy: 0}, {dx: 1, dy: 1}, {dx: 2, dy: 2}],
+            [{dx: -1, dy: 1}, {dx: 0, dy: 0}, {dx: 1, dy: 1}],
+            [{dx: -2, dy: 2}, {dx: -1, dy: 1}, {dx: 0, dy: 0}],
+
+            [{dx: 0, dy: 0}, {dx: 1, dy: -1}, {dx: 2, dy: -2}],
+        ];
   } 
 
 return {
     makeMove,
     switchPlayer,
     checkWin,
+    getCurrentPlayer,
     player1,
     player2,
     board
@@ -96,10 +119,10 @@ return {
 
 function displayGame(){
    
+    let currentGame = playGame(3, 3);
 
     const displayedBoard = document.querySelector(".board");
-    
-    const initialGame = playGame(3, 3);
+
 
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
@@ -116,12 +139,22 @@ function displayGame(){
             cellButton.classList.add("cell");
             cellButton.dataset.x = board[key].x;
             cellButton.dataset.y = board[key].y;
+            cellButton.addEventListener("click", event => {
+                const activePlayer = currentGame.getCurrentPlayer();
+                activePlayer == "Player1" ? cellButton.textContent = "X" : cellButton.textContent = "O";
+                currentGame.makeMove(event.target.dataset.x, event.target.dataset.y);
+                
+
+            });
             displayedBoard.appendChild(cellButton);
 
         });
     }
 
-displayBoard(initialGame.board);
+displayBoard(currentGame.board);
+
+/* currentGame.player1.name = prompt("Player 1, what is your name?");
+console.log(currentGame.player1.name); */
 /* console.log(initialGame); */
 
 
@@ -159,7 +192,7 @@ const gameboard = (function() {
 
 displayGame();
 /* playGame(); */
-const game = playGame(3, 3);
+/*  const game = playGame(3, 3);
 
 
         game.makeMove(1, 2);
@@ -168,3 +201,4 @@ const game = playGame(3, 3);
          game.makeMove(3, 1); 
        game.makeMove(2, 2);
    
+  */
