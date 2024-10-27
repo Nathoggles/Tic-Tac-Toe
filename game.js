@@ -47,13 +47,18 @@ function playGame(x, y){
 
     function makeMove(x, y){
         //console.log(board);
+        x = parseInt(x);
+        y = parseInt(y);
         board[`x${x}y${y}`].state = 1;
         currentPlayer.moves.push({x, y});
         console.table(currentPlayer.moves);
         alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
         //console.log(board[`x${x}y${y}`]);
         //console.table(currentPlayer.moves);
-        checkWin(x, y, currentPlayer);
+        if (checkWin(x, y, currentPlayer)){
+            alert(`${currentPlayer.name} has won`);
+            return;
+        }
         switchPlayer();
     } 
 
@@ -66,7 +71,8 @@ function playGame(x, y){
 
     
        function checkWin(x, y, player){
-  /*      console.table(player.moves);
+  /* //old checkWin function
+       console.table(player.moves);
        player.moves.forEach(baseCoord => {
         if ((player.moves.find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y) && 
             player.moves.find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y))
@@ -96,12 +102,21 @@ function playGame(x, y){
 
             //diagonal  
             [{dx: 0, dy: 0}, {dx: 1, dy: 1}, {dx: 2, dy: 2}],
-            [{dx: -1, dy: 1}, {dx: 0, dy: 0}, {dx: 1, dy: 1}],
-            [{dx: -2, dy: 2}, {dx: -1, dy: 1}, {dx: 0, dy: 0}],
+            [{dx: 0, dy: 0}, {dx: -1, dy: -1}, {dx: -2, dy: -2}],
 
             [{dx: 0, dy: 0}, {dx: 1, dy: -1}, {dx: 2, dy: -2}],
+            [{dx: 0, dy: 0}, {dx: -1, dy: 1}, {dx: -2, dy: 2}]
         ];
+
+        return winningPatterns.some(pattern => {
+            return pattern.every(position => {
+                const checkX = x + position.dx;
+                const checkY = y + position.dy;
+                return player.moves.some(move => move.x === checkX && move.y === checkY);
+            });
+        });
   } 
+
 
 return {
     makeMove,
