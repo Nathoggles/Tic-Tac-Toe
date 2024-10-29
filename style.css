@@ -113,12 +113,15 @@
 
 
 .board {
-  height: 75vh;
+  width: min(50vw, 75vh);
   aspect-ratio: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   position: relative;
   background: transparent;
+
+
+
 }
 
 .cell {
@@ -133,23 +136,25 @@
   position: relative;
   font-size: calc(var(--base-size) * 5);
 
-  border: 1px red solid;
+
+
+
+  position: relative;
 
 }
 
 
-.board::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, transparent 33.33%, black 33.33%, black calc(33.33% + 0.3rem), transparent calc(33.33% + 0.3rem)),
-    linear-gradient(to right, transparent 66.66%, black 66.66%, black calc(66.66% + 0.3rem), transparent calc(66.66% + 0.3rem)),
-    linear-gradient(to bottom, transparent 33.33%, black 33.33%, black calc(33.33% + 0.3rem), transparent calc(33.33% + 0.3rem)),
-    linear-gradient(to bottom, transparent 66.66%, black 66.66%, black calc(66.66% + 0.3rem), transparent calc(66.66% + 0.3rem));
-  pointer-events: none;
-} 
 
+
+
+.borderR{
+  border-right: 0.3rem black solid;
+}
+
+.borderB{
+  border-bottom: 0.3rem black solid;
+}
+/
 
 .cell:focus {
   outline: 2px solid #003366;

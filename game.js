@@ -8,16 +8,15 @@ const gameboard = (function() {
     const makeBoard = (x, y) => {
     const rows = x;
     const columns = y;
-    const board = {};
-
+    const coordinates = {};
     for (let y = 1; y <= rows; y++) {
         for (let x = 1; x <= columns; x++){
             const coordinate = `x${x}y${y}`;
-            board[coordinate] = {x, y};
-            board[coordinate].state = 0;
+            coordinates[coordinate] = {x, y};
+            coordinates[coordinate].state = 0;
         }
     }
-    return board;}
+    return {coordinates, rows, columns};}
     return {makeBoard};
 })();
 
@@ -51,7 +50,7 @@ function playGame(x, y){
         //console.log(board);
         x = parseInt(x);
         y = parseInt(y);
-        board[`x${x}y${y}`].state = 1;
+        board.coordinates[`x${x}y${y}`].state = 1;
         currentPlayer.moves.push({x, y});
         console.table(currentPlayer.moves);
        // alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
@@ -162,20 +161,30 @@ function displayGame(){
 
     function displayBoard(board) {
         removeAllChildNodes(displayedBoard);
+        //console.table(board);
+        //console.log(board.rows);
+        Object.keys(board.coordinates).forEach((key) => {
 
-        Object.keys(board).forEach((key) => {
+
 
             const cellButton = document.createElement("button");
             cellButton.classList.add("cell");
-            cellButton.dataset.x = board[key].x;
-            cellButton.dataset.y = board[key].y;
+            cellButton.dataset.x = board.coordinates[key].x;
+            cellButton.dataset.y = board.coordinates[key].y;
             cellButton.addEventListener("click", event => {
                 const activePlayer = currentGame.getCurrentPlayer();
                 activePlayer == "Player1" ? cellButton.textContent = "X" : cellButton.textContent = "O";
                 currentGame.makeMove(event.target.dataset.x, event.target.dataset.y);
                 
-
             });
+
+            if (board.coordinates[key].x != board.rows ) {
+                cellButton.classList.add("borderR");
+            }
+
+            if (board.coordinates[key].y != board.columns) {
+                cellButton.classList.add("borderB");
+            }
             displayedBoard.appendChild(cellButton);
 
         });
