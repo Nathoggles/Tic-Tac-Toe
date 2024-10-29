@@ -34,15 +34,23 @@
 }
 
 .header{
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr;
+  grid-template-rows: 1050fr 0.5fr;
   justify-content: space-between;
   align-items: center;
+  justify-items: center;
+  align-content: center;
   width: 60%;
+  height: 15%;
   margin-bottom: 5vh;
-
 }
 
+.changeName.player2{
+grid-column: 4;
+}
 .playerContainer {
   display: flex;
   flex-direction: column;
@@ -87,6 +95,10 @@
   }
 }
 
+.score {
+  font-size: calc(var(--base-size) * 2.3);
+  margin-bottom: auto;
+}
 
 .changeName {
   font-size: calc(var(--base-size) * 1.2);

@@ -21,11 +21,13 @@ const gameboard = (function() {
     return {makeBoard};
 })();
 
+
+
 /* console.log(gameboard.makeBoard(3, 3)); */
 
 
 function playGame(x, y){
-    const board = gameboard.makeBoard(x,y);
+    let board = gameboard.makeBoard(3,3);
     /* console.log(board); */
     
     function MakePlayer(name){
@@ -52,11 +54,13 @@ function playGame(x, y){
         board[`x${x}y${y}`].state = 1;
         currentPlayer.moves.push({x, y});
         console.table(currentPlayer.moves);
-        alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
+       // alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
         //console.log(board[`x${x}y${y}`]);
         //console.table(currentPlayer.moves);
         if (checkWin(x, y, currentPlayer)){
-            alert(`${currentPlayer.name} has won`);
+            alert(`${currentPlayer.name} has won!`);
+            currentPlayer.upScore();
+            resetGame(3,3);
             return;
         }
         switchPlayer();
@@ -71,8 +75,11 @@ function playGame(x, y){
 
     
        function checkWin(x, y, player){
-  /* //old checkWin function
-       console.table(player.moves);
+  //old checkWin function. on a 3x3 board, it for each of max 5 player moves checks agaisnt the other thus max 5 player moves  max four win conditions with two find calls perr check. Thus, max 8 × 5 × 5 = 200 checks
+  //the new, alternative wincondition meanwhile has 10 winning patterns with 3 coordinates per pattern which it checks against max 5 player moves. Thus, max 10 × 3 × 5 = 150 checks
+  //moreover, if expanding the board, the number of checks increase only linearly compared to function 1.
+  //Thus, moving to new function but preserving old one to document evolution of my approach. 
+    /*    console.table(player.moves);
        player.moves.forEach(baseCoord => {
         if ((player.moves.find(element => element.x == baseCoord.x + 1 && element.y == baseCoord.y) && 
             player.moves.find(element => element.x == baseCoord.x + 2 && element.y == baseCoord.y))
@@ -86,8 +93,7 @@ function playGame(x, y){
             alert(player.name + " has won");
         }
         
-        });   */
-
+        });    */
 
         const winningPatterns = [
             //horizontal
@@ -114,15 +120,24 @@ function playGame(x, y){
                 const checkY = y + position.dy;
                 return player.moves.some(move => move.x === checkX && move.y === checkY);
             });
-        });
+        }); 
   } 
 
+  function resetGame(x, y){
+    board = gameboard.makeBoard(x,y);
+    player1.moves = [];
+    player2.moves = [];
+    currentPlayer = player1;
+    const display = displayGame();
+    display.displayBoard(board);
+  }
 
 return {
     makeMove,
     switchPlayer,
     checkWin,
     getCurrentPlayer,
+    resetGame,
     player1,
     player2,
     board
@@ -134,7 +149,7 @@ return {
 
 function displayGame(){
    
-    let currentGame = playGame(3, 3);
+    const currentGame = playGame();
 
     const displayedBoard = document.querySelector(".board");
 
@@ -166,10 +181,12 @@ function displayGame(){
         });
     }
 
-displayBoard(currentGame.board);
+ displayBoard(currentGame.board);
 
-/* currentGame.player1.name = prompt("Player 1, what is your name?");
-console.log(currentGame.player1.name); */
+
+
+/*currentGame.player1.name = prompt("Player 1, what is your name?");
+console.log(currentGame.player1.name);  */
 /* console.log(initialGame); */
 
 
@@ -201,19 +218,20 @@ const gameboard = (function() {
     return board;}
     return {makeBoard};
 })(); */
-
+return {
+    displayBoard}
 
 }
 
 displayGame();
 /* playGame(); */
-/*  const game = playGame(3, 3);
+ /*  const game = playGame(3, 3);
+ */
 
-
-        game.makeMove(1, 2);
+/*         game.makeMove(1, 2);
          game.makeMove(3, 3);
        game.makeMove(3, 2);
          game.makeMove(3, 1); 
        game.makeMove(2, 2);
-   
-  */
+    */
+  
