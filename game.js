@@ -127,10 +127,9 @@ function playGame(x, y){
     player1.moves = [];
     player2.moves = [];
     currentPlayer = player1;
-    const display = displayGame();
-    display.displayBoard(board);
+    displayGame({ board, getCurrentPlayer });  // Pass required parts of `game`
   }
-
+resetGame(3, 3);
 return {
     makeMove,
     switchPlayer,
@@ -146,101 +145,46 @@ return {
 
 
 
-function displayGame(){
-   
-    const currentGame = playGame();
-
+function displayGame(game) {
     const displayedBoard = document.querySelector(".board");
-
 
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
-    }; 
+    }
 
     function displayBoard(board) {
         removeAllChildNodes(displayedBoard);
-        //console.table(board);
-        //console.log(board.rows);
+
         Object.keys(board.coordinates).forEach((key) => {
-
-
-
             const cellButton = document.createElement("button");
             cellButton.classList.add("cell");
             cellButton.dataset.x = board.coordinates[key].x;
             cellButton.dataset.y = board.coordinates[key].y;
+
+            // Use game.getCurrentPlayer here
             cellButton.addEventListener("click", event => {
-                const activePlayer = currentGame.getCurrentPlayer();
-                activePlayer == "Player1" ? cellButton.textContent = "X" : cellButton.textContent = "O";
-                currentGame.makeMove(event.target.dataset.x, event.target.dataset.y);
-                
+                const activePlayer = game.getCurrentPlayer(); // Access the current player
+                cellButton.textContent = activePlayer === "Player1" ? "X" : "O";
+                game.makeMove(event.target.dataset.x, event.target.dataset.y);
             });
 
-            if (board.coordinates[key].x != board.rows ) {
+            if (board.coordinates[key].x != board.rows) {
                 cellButton.classList.add("borderR");
             }
 
             if (board.coordinates[key].y != board.columns) {
                 cellButton.classList.add("borderB");
             }
-            displayedBoard.appendChild(cellButton);
 
+            displayedBoard.appendChild(cellButton);
         });
     }
 
- displayBoard(currentGame.board);
-
-
-
-/*currentGame.player1.name = prompt("Player 1, what is your name?");
-console.log(currentGame.player1.name);  */
-/* console.log(initialGame); */
-
-
-
-/*     const initialGame = function(){
-        playGame(3, 3);
-        
-    }();
-    
-    
-    playGame(3, 3);
-    initialGame();    
- */
-    
-/* 
-const gameboard = (function() {
-    const makeBoard = (x, y) => {
-    const rows = x;
-    const columns = y;
-    const board = {};
-
-    for (let y = 1; y <= rows; y++) {
-        for (let x = 1; x <= columns; x++){
-            const coordinate = `x${x}y${y}`;
-            board[coordinate] = {x, y};
-            board[coordinate].state = 0;
-        }
-    }
-    return board;}
-    return {makeBoard};
-})(); */
-return {
-    displayBoard}
-
+    displayBoard(game.board); // Use game.board directly
 }
 
-displayGame();
-/* playGame(); */
- /*  const game = playGame(3, 3);
- */
-
-/*         game.makeMove(1, 2);
-         game.makeMove(3, 3);
-       game.makeMove(3, 2);
-         game.makeMove(3, 1); 
-       game.makeMove(2, 2);
-    */
-  
+// Initialize and display the game
+const game = playGame();
+displayGame(game);
