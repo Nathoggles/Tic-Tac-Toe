@@ -31,7 +31,7 @@ function playGame(x, y){
     
     function MakePlayer(name){
         let score = 0;
-        const id = name;
+        const id = name.toLowerCase();
         const getScore = () => score;
         const upScore = () => score++;
         const moves = []; //array to track each player's moves
@@ -43,7 +43,11 @@ function playGame(x, y){
 
 
 
-    const getCurrentPlayer = () => currentPlayer.id;
+    const getCurrentPlayer = () => ({
+        id: currentPlayer.id,
+        score: currentPlayer.getScore(),
+        name: currentPlayer.name
+    });
 
 
     function makeMove(x, y){
@@ -52,7 +56,7 @@ function playGame(x, y){
         y = parseInt(y);
         board.coordinates[`x${x}y${y}`].state = 1;
         currentPlayer.moves.push({x, y});
-        console.table(currentPlayer.moves);
+       // console.table(currentPlayer.moves);
        // alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
         //console.log(board[`x${x}y${y}`]);
         //console.table(currentPlayer.moves);
@@ -67,6 +71,7 @@ function playGame(x, y){
 
     function switchPlayer(){
         currentPlayer == player1 ? currentPlayer = player2 : currentPlayer = player1; 
+        displayPlayer(currentPlayer);
 /*         console.log(currentPlayer); */
         }
 
@@ -93,7 +98,7 @@ function playGame(x, y){
         }
         
         });    */
-
+//add guarding statement checking for not draw if some cell state == 0;
         const winningPatterns = [
             //horizontal
             [{dx: 0, dy: 0}, {dx: 1, dy: 0}, {dx: 2, dy: 0}],
@@ -126,11 +131,11 @@ function playGame(x, y){
     board = gameboard.makeBoard(x,y);
     player1.moves = [];
     player2.moves = [];
+    //console.log(currentPlayer.getScore());
+    displayGame({ board, getCurrentPlayer, makeMove, player1, player2 });  // Pass required parts of game
     currentPlayer = player1;
-    const display = displayGame();
-    display.displayBoard(board);
   }
-
+resetGame(3, 3);
 return {
     makeMove,
     switchPlayer,
@@ -146,64 +151,90 @@ return {
 
 
 
-function displayGame(){
-   
-    const currentGame = playGame();
-
+function displayGame(game) {
     const displayedBoard = document.querySelector(".board");
 
-    const playerNames = document.querySelectorAll(".player")
-    console.log(playerNames);
+    
 
+    const changeNames = document.querySelectorAll(".changeName");
+    changeNames.forEach(changeName => changeName.addEventListener("click", event => {
+    
+        const player = changeName.dataset.player;
+        const newName = prompt("Enter new name");
+       
+
+       game[player].name = newName;
+        const playerDiv = document.querySelector(`.${player}.player`);
+        const playerDivText = playerDiv.querySelector("span");
+    
+        playerDivText.textContent = newName;
+       
+
+    
+    },  { once: true }));
 
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
-    }; 
+    }
+
+    function displayScore(player){
+        if (player.score != 0) {
+            
+       
+        const score = document.querySelector(`.${player.id}.score`);
+        score.textContent = player.score;
+    }}
 
     function displayBoard(board) {
+        displayScore(game.getCurrentPlayer());    
         removeAllChildNodes(displayedBoard);
-        //console.table(board);
-        //console.log(board.rows);
+
+
+
         Object.keys(board.coordinates).forEach((key) => {
-
-
-
             const cellButton = document.createElement("button");
             cellButton.classList.add("cell");
             cellButton.dataset.x = board.coordinates[key].x;
             cellButton.dataset.y = board.coordinates[key].y;
+
             cellButton.addEventListener("click", event => {
-                const activePlayer = currentGame.getCurrentPlayer();
-                activePlayer == "Player1" ? cellButton.textContent = "X" : cellButton.textContent = "O";
-                currentGame.makeMove(event.target.dataset.x, event.target.dataset.y);
-                
+                if (board.coordinates[key].state == 1){
+                    return;
+                }
+                const activePlayer = game.getCurrentPlayer().id; 
+
+                cellButton.textContent = activePlayer === "player1" ? "X" : "O";
+                game.makeMove(event.target.dataset.x, event.target.dataset.y);
             });
 
-            if (board.coordinates[key].x != board.rows ) {
+            if (board.coordinates[key].x != board.rows) {
                 cellButton.classList.add("borderR");
             }
 
             if (board.coordinates[key].y != board.columns) {
                 cellButton.classList.add("borderB");
             }
-            displayedBoard.appendChild(cellButton);
 
+            displayedBoard.appendChild(cellButton);
         });
     }
 
- displayBoard(currentGame.board);
-
-
-
-/*currentGame.player1.name = prompt("Player 1, what is your name?");
-console.log(currentGame.player1.name);  */
-/* console.log(initialGame); */
-
-return {
-    displayBoard}
-
+    displayBoard(game.board); 
 }
 
-displayGame();
+function displayPlayer(player){
+    const activePlayer = document.querySelector(`.${player.id}.player`);
+    const previousPlayer = player.id === "player1" ? document.querySelector(`.player2.player`) : document.querySelector(`.player1.player`);
+    const underline = activePlayer.querySelector(".underline-svg");
+    const previousUnderline = previousPlayer.querySelector(".underline-svg");
+
+    previousUnderline.classList.remove("animate-draw");
+    underline.classList.add("animate-draw");
+   // underline.style.opacity = 1;
+    //console.log(activePlayer);
+   // activePlayer.classList.add("animate-draw");
+}
+playGame();
+//displayGame(game);
