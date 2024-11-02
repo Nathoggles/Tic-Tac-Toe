@@ -31,7 +31,7 @@ function playGame(x, y){
     
     function MakePlayer(name){
         let score = 0;
-        const id = name;
+        const id = name.toLowerCase();
         const getScore = () => score;
         const upScore = () => score++;
         const moves = []; //array to track each player's moves
@@ -43,7 +43,11 @@ function playGame(x, y){
 
 
 
-    const getCurrentPlayer = () => currentPlayer.id;
+    const getCurrentPlayer = () => ({
+        id: currentPlayer.id,
+        score: currentPlayer.getScore(),
+        name: currentPlayer.name
+    });
 
 
     function makeMove(x, y){
@@ -52,7 +56,7 @@ function playGame(x, y){
         y = parseInt(y);
         board.coordinates[`x${x}y${y}`].state = 1;
         currentPlayer.moves.push({x, y});
-        console.table(currentPlayer.moves);
+       // console.table(currentPlayer.moves);
        // alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
         //console.log(board[`x${x}y${y}`]);
         //console.table(currentPlayer.moves);
@@ -67,6 +71,7 @@ function playGame(x, y){
 
     function switchPlayer(){
         currentPlayer == player1 ? currentPlayer = player2 : currentPlayer = player1; 
+        displayPlayer(currentPlayer);
 /*         console.log(currentPlayer); */
         }
 
@@ -93,7 +98,7 @@ function playGame(x, y){
         }
         
         });    */
-
+//add guarding statement checking for not draw if some cell state == 0;
         const winningPatterns = [
             //horizontal
             [{dx: 0, dy: 0}, {dx: 1, dy: 0}, {dx: 2, dy: 0}],
@@ -126,8 +131,9 @@ function playGame(x, y){
     board = gameboard.makeBoard(x,y);
     player1.moves = [];
     player2.moves = [];
+    //console.log(currentPlayer.getScore());
+    displayGame({ board, getCurrentPlayer, makeMove });  // Pass required parts of game
     currentPlayer = player1;
-    displayGame({ board, getCurrentPlayer });  // Pass required parts of `game`
   }
 resetGame(3, 3);
 return {
@@ -154,8 +160,20 @@ function displayGame(game) {
         }
     }
 
+    function displayScore(player){
+        if (player.score != 0) {
+            
+       
+        const score = document.querySelector(`.${player.id}.score`);
+        console.log(score);
+        score.textContent = player.score;
+    }}
+
     function displayBoard(board) {
+        displayScore(game.getCurrentPlayer());    
         removeAllChildNodes(displayedBoard);
+
+
 
         Object.keys(board.coordinates).forEach((key) => {
             const cellButton = document.createElement("button");
@@ -163,10 +181,13 @@ function displayGame(game) {
             cellButton.dataset.x = board.coordinates[key].x;
             cellButton.dataset.y = board.coordinates[key].y;
 
-            // Use game.getCurrentPlayer here
             cellButton.addEventListener("click", event => {
-                const activePlayer = game.getCurrentPlayer(); // Access the current player
-                cellButton.textContent = activePlayer === "Player1" ? "X" : "O";
+                if (board.coordinates[key].state == 1){
+                    return;
+                }
+                const activePlayer = game.getCurrentPlayer().id; 
+
+                cellButton.textContent = activePlayer === "player1" ? "X" : "O";
                 game.makeMove(event.target.dataset.x, event.target.dataset.y);
             });
 
@@ -182,9 +203,23 @@ function displayGame(game) {
         });
     }
 
-    displayBoard(game.board); // Use game.board directly
+    displayBoard(game.board); 
 }
 
-// Initialize and display the game
-const game = playGame();
-displayGame(game);
+function displayPlayer(player){
+    //console.log(player.id);
+    const activePlayer = document.querySelector(`.${player.id}.player`);
+    console.log(activePlayer.id)
+    const previousPlayer = player.id === "player1" ? document.querySelector(`.player2.player`) : document.querySelector(`.player1.player`);
+    console.log(previousPlayer);
+    const underline = activePlayer.querySelector(".underline-svg");
+    const previousUnderline = previousPlayer.querySelector(".underline-svg");
+    previousUnderline.classList.remove("animate-draw");
+   // console.log(underline);
+    underline.classList.add("animate-draw");
+   // underline.style.opacity = 1;
+    //console.log(activePlayer);
+   // activePlayer.classList.add("animate-draw");
+}
+playGame();
+//displayGame(game);
