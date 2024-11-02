@@ -271,8 +271,9 @@ function underlineSize(currentSize, newSize){
     console.log(currentUnderline);
    console.log(currentSizeSelector);
     const newSizeSelector = document.querySelector(`[data-size = "${newSize}"]`);
-    currentSizeSelector.querySelector(".underline-svg-bot").classList.add("animate-draw");
-    currentSizeSelector.querySelector(".underline-svg-bot").style.opacity = 1;
+    const newUnderline = newSizeSelector.querySelector(".underline-svg-bot");
+    newUnderline.classList.add("animate-draw");
+    newUnderline.style.opacity = 1;
 }
 
 playGame();
