@@ -2,7 +2,7 @@
 //0, 1, 2 to each cell, or player=true?
 //win logic is on each move run rechwinner funct and that looks if x-1/y0 & x+1/y0 == 1[or true] || x0/y-1 & x0/y-1 == 1 || x+1/y+1 && x-1 && x-1 y-1 == 1 (but that only for center, check if need own logic for sides)
 
-
+//fix display of larger boards by finding relative value for cell fonts, then fix size selectors animation
 
 const gameboard = (function() {
     const makeBoard = (x, y) => {
@@ -210,7 +210,8 @@ function displayGame(game) {
         displayScore(game.getCurrentPlayer());    
         removeAllChildNodes(displayedBoard);
 
-
+        const grid = document.querySelector(".board");
+        grid.style.gridTemplateColumns = `repeat(${board.columns}, 1fr)`;
 
         Object.keys(board.coordinates).forEach((key) => {
             const cellButton = document.createElement("button");

@@ -84,30 +84,12 @@
 
 }
 
-.sizeSelector
-{
-  position: relative;
-  padding: 0;
-  line-height: 1.2;
-}
+
 .animate-draw path {
   animation: draw-line 0.7s ease forwards;
 }
 
 
-.underline-svg-bot {
-  position: absolute;
-  bottom: -0.1vh; 
-  left: 0;
-  width: 100%; /* Ensures the SVG stretches to the width of the text */
-  height: auto; /* Maintain aspect ratio */
-}
-
-.underline-svg-bot path {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-
-}
 
 /* Animation keyframes */
 @keyframes draw-line {
@@ -157,10 +139,10 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  font-size: calc(var(--base-size) * 5);
+ /*  font-size: calc(var(--base-size) * 5);
+ */
 
-
-
+font-size: 2em;
 
   position: relative;
 
@@ -217,4 +199,25 @@
 
 a {
   color: black;
+}
+
+.sizeSelector
+{
+  position: relative;
+  padding: 0;
+  line-height: 1.2;
+}
+
+.underline-svg-bot {
+  position: absolute;
+  bottom: -0.1vh; 
+  left: 0;
+  width: 100%; /* Ensures the SVG stretches to the width of the text */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.underline-svg-bot path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+
 }
