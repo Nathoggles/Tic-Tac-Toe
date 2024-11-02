@@ -70,12 +70,10 @@
 
 .underline-svg {
   position: absolute;
-  bottom: -0.5vh; /* Adjust position as needed */
+  bottom: -0.5vh; 
   left: 0;
-/*   width: 100%; */
+  opacity: 0;
 
-  
-  
 }
 
 .underline-svg path {
@@ -83,10 +81,32 @@
   stroke-dashoffset: 100;
 
 
+
 }
 
+.sizeSelector
+{
+  position: relative;
+  padding: 0;
+  line-height: 1.2;
+}
 .animate-draw path {
   animation: draw-line 0.7s ease forwards;
+}
+
+
+.underline-svg-bot {
+  position: absolute;
+  bottom: -0.1vh; 
+  left: 0;
+  width: 100%; /* Ensures the SVG stretches to the width of the text */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.underline-svg-bot path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+
 }
 
 /* Animation keyframes */
@@ -116,7 +136,7 @@
 
 
 .board {
-  width: min(50vw, 75vh);
+  width: min(50vw, 70vh);
   aspect-ratio: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -180,6 +200,15 @@
   width: 70%;
   margin-top: 2vh;
   height: 7vh;
+}
+
+.boardSize {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: calc(var(--base-size) * 1.7);
+  gap: 2vw;
+  margin-right: auto;
 }
 
 .signature {

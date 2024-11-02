@@ -237,8 +237,11 @@ function displayPlayer(player){
     const previousUnderline = previousPlayer.querySelector(".underline-svg");
 
     previousUnderline.classList.remove("animate-draw");
+    previousUnderline.style.opacity = 0;
     underline.classList.add("animate-draw");
-   // underline.style.opacity = 1;
+
+    console.log(underline);
+    underline.style.opacity = 1;
     //console.log(activePlayer);
    // activePlayer.classList.add("animate-draw");
 }

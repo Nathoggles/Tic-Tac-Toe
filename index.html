@@ -36,8 +36,8 @@
                 </div>
                 
             </div>
-            <div class = "changeName player1" data-player = player1>(change name)</div>
-            <div class = "changeName player2" data-player = player2>(change name)</div>
+            <div class = "changeName player player1" data-player = player1>(change name)</div>
+            <div class = "changeName player player2" data-player = player2>(change name)</div>
         </div>
             <div class = "board">
               <!--   <button class = "cell" id = "x1y1"></button>
@@ -52,13 +52,30 @@
             </div>
         <div class = "footer">
             <div class = "boardSize"> 
-                <!-- <label for = "size">Board Size</label>
-                <select name = "size" id = "size">
-                    <option value = "3">3x3</option>
-                    <option value = "4">4x4</option>
-                    <option value = "5">5x5</option>
-                </select> -->
-                3 x 3 
+               <div class = "sizeSelector">
+                    <div class = "sizeText">3x3 
+                        <svg class="underline-svg-bot animate-draw" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
+                            <path d="M 0 5 Q 25 2, 100 5" stroke="black" stroke-width="5" fill="none" stroke-linecap="round"
+                                  stroke-dasharray="100" stroke-dashoffset="100"></path>
+                        </svg>
+                 </div>
+                </div>
+               <div class = "sizeSelector">
+                    <div class = "sizeText"><span>5x5</span>
+                        <svg class="underline-svg-bot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
+                            <path d="M 0 5 Q 25 2, 100 5" stroke="black" stroke-width="5" fill="none" stroke-linecap="round"
+                                  stroke-dasharray="100" stroke-dashoffset="100"></path>
+                        </svg>
+                 </div>
+                </div>
+               <div class = "sizeSelector">
+                <div class = "sizeText">7x7
+                    <svg class="underline-svg-bot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10">
+                        <path d="M 0 5 Q 25 2, 100 5" stroke="black" stroke-width="5" fill="none" stroke-linecap="round"
+                              stroke-dasharray="100" stroke-dashoffset="100"></path>
+                    </svg>
+                 </div>
+               </div>
             </div>
             <div class = "signature"><a href = "https://github.com/Nathoggles/Tic-Tac-Toe/">DS, 2024</a></div>
         </div>
