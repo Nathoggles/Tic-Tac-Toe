@@ -24,6 +24,7 @@ const gameboard = (function() {
 
 /* console.log(gameboard.makeBoard(3, 3)); */
 
+let initialRun = true;
 
 function playGame(x, y){
     let board = gameboard.makeBoard(3,3);
@@ -135,6 +136,7 @@ function playGame(x, y){
     displayGame({ board, getCurrentPlayer, makeMove, player1, player2 });  // Pass required parts of game
     currentPlayer = player1;
   }
+
 resetGame(3, 3);
 return {
     makeMove,
@@ -153,26 +155,30 @@ return {
 
 function displayGame(game) {
     const displayedBoard = document.querySelector(".board");
-
     
-
-    const changeNames = document.querySelectorAll(".changeName");
-    changeNames.forEach(changeName => changeName.addEventListener("click", event => {
     
-        const player = changeName.dataset.player;
-        const newName = prompt("Enter new name");
-       
-
-       game[player].name = newName;
-        const playerDiv = document.querySelector(`.${player}.player`);
-        const playerDivText = playerDiv.querySelector("span");
+    if (initialRun) {
+        const changeNames = document.querySelectorAll(".changeName");
+        changeNames.forEach(changeName => changeName.addEventListener("click", event => {
     
-        playerDivText.textContent = newName;
-       
-
+            
+        
+            const player = changeName.dataset.player;
+            const newName = prompt("Enter new name");
+           
     
-    },  { once: true }));
-
+           game[player].name = newName.slice(0, 20);
+            const playerDiv = document.querySelector(`.${player}.player`);
+            const playerDivText = playerDiv.querySelector("span");
+        
+            playerDivText.textContent = newName.slice(0, 20);
+           
+    
+        
+        }));
+        initialRun = false;
+    }
+  
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
