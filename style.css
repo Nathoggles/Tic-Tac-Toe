@@ -70,16 +70,19 @@
 
 .underline-svg {
   position: absolute;
-  bottom: -5px; /* Adjust position as needed */
+  bottom: -0.5vh; /* Adjust position as needed */
   left: 0;
-  width: 100%;
-  height: auto;
-  opacity: 1;
+/*   width: 100%; */
+
+  
+  
 }
 
 .underline-svg path {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
+
+
 }
 
 .animate-draw path {

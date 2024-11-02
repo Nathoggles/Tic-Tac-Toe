@@ -135,6 +135,7 @@ function playGame(x, y){
     //console.log(currentPlayer.getScore());
     displayGame({ board, getCurrentPlayer, makeMove, player1, player2 });  // Pass required parts of game
     currentPlayer = player1;
+    displayPlayer(currentPlayer);
   }
 
 resetGame(3, 3);
@@ -167,11 +168,10 @@ function displayGame(game) {
             const newName = prompt("Enter new name");
            
     
-           game[player].name = newName.slice(0, 20);
+           game[player].name = newName.slice(0, 10);
             const playerDiv = document.querySelector(`.${player}.player`);
-            const playerDivText = playerDiv.querySelector("span");
-        
-            playerDivText.textContent = newName.slice(0, 20);
+            const playerDivText = playerDiv.querySelector("span");    
+            playerDivText.textContent = newName.slice(0, 10);
            
     
         
