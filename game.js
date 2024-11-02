@@ -2,7 +2,8 @@
 //0, 1, 2 to each cell, or player=true?
 //win logic is on each move run rechwinner funct and that looks if x-1/y0 & x+1/y0 == 1[or true] || x0/y-1 & x0/y-1 == 1 || x+1/y+1 && x-1 && x-1 y-1 == 1 (but that only for center, check if need own logic for sides)
 
-//fix display of larger boards by finding relative value for cell fonts, then fix size selectors animation. 
+//fix display of larger boards by finding relative value for cell fonts, 
+//selector animation fixed but make sure it runs one time on start (maybe even by adding animate in html) and check that opacity set correctly on size toggle 
 //Add win message and delay on board reset
 //add draw message and reset
 //check score remains correct when board is reset midgame by selecting different board
@@ -182,17 +183,15 @@ function displayGame(game) {
             
         
         }));
-        let currentSize = 3;
         const sizeSelectors = document.querySelectorAll(".sizeSelector");
-                console.log(sizeSelectors);
                 sizeSelectors.forEach(sizeSelector => {
                     sizeSelector.addEventListener("click", event => {
                         const size =  sizeSelector.dataset.size;
                         game.resetGame(size, size);
-                        underlineSize(currentSize, size);
-                        currentSize = size;
+                        underlineSize(sizeSelectors, size);
                     })
                 });
+            underlineSize(sizeSelectors, 3);
         initialRun = false;
     }
   
@@ -263,13 +262,13 @@ function displayPlayer(player){
    // activePlayer.classList.add("animate-draw");
 }
 
-function underlineSize(currentSize, newSize){
-    const currentSizeSelector = document.querySelector(`[data-size = "${currentSize}"]`);
-    const currentUnderline = currentSizeSelector.querySelector(".underline-svg-bot");
-    currentUnderline.classList.remove("animate-draw");
-    currentUnderline.style.opacity = 0;
-    console.log(currentUnderline);
-   console.log(currentSizeSelector);
+function underlineSize(sizeSelectors, newSize){
+
+    sizeSelectors.forEach(sizeSelector => {
+        sizeSelector.querySelector(".underline-svg-bot").classList.remove("animate-draw");
+        sizeSelector.querySelector(".underline-svg-bot").style.opacity = 0;
+    });
+
     const newSizeSelector = document.querySelector(`[data-size = "${newSize}"]`);
     const newUnderline = newSizeSelector.querySelector(".underline-svg-bot");
     newUnderline.classList.add("animate-draw");
