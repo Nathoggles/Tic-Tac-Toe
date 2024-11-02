@@ -152,6 +152,9 @@ function displayGame(){
 
     const displayedBoard = document.querySelector(".board");
 
+    const playerNames = document.querySelectorAll(".player")
+    console.log(playerNames);
+
 
     function removeAllChildNodes(parent) {
         while (parent.firstChild) {
@@ -198,49 +201,9 @@ function displayGame(){
 console.log(currentGame.player1.name);  */
 /* console.log(initialGame); */
 
-
-
-/*     const initialGame = function(){
-        playGame(3, 3);
-        
-    }();
-    
-    
-    playGame(3, 3);
-    initialGame();    
- */
-    
-/* 
-const gameboard = (function() {
-    const makeBoard = (x, y) => {
-    const rows = x;
-    const columns = y;
-    const board = {};
-
-    for (let y = 1; y <= rows; y++) {
-        for (let x = 1; x <= columns; x++){
-            const coordinate = `x${x}y${y}`;
-            board[coordinate] = {x, y};
-            board[coordinate].state = 0;
-        }
-    }
-    return board;}
-    return {makeBoard};
-})(); */
 return {
     displayBoard}
 
 }
 
 displayGame();
-/* playGame(); */
- /*  const game = playGame(3, 3);
- */
-
-/*         game.makeMove(1, 2);
-         game.makeMove(3, 3);
-       game.makeMove(3, 2);
-         game.makeMove(3, 1); 
-       game.makeMove(2, 2);
-    */
-  
