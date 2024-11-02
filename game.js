@@ -3,11 +3,12 @@
 //win logic is on each move run rechwinner funct and that looks if x-1/y0 & x+1/y0 == 1[or true] || x0/y-1 & x0/y-1 == 1 || x+1/y+1 && x-1 && x-1 y-1 == 1 (but that only for center, check if need own logic for sides)
 
 //fix display of larger boards by finding relative value for cell fonts, 
-//selector animation fixed but make sure it runs one time on start (maybe even by adding animate in html) and check that opacity set correctly on size toggle 
 //Add win message and delay on board reset
 //add draw message and reset
 //check score remains correct when board is reset midgame by selecting different board
 //fix scoring (currently seem to misassign some scores)
+//add light animation on boardreset?
+//will need to add 4 in a row logic to 5 and 7 boards
 
 const gameboard = (function() {
     const makeBoard = (x, y) => {
