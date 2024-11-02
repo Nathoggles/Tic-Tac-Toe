@@ -133,9 +133,10 @@ function playGame(x, y){
     player1.moves = [];
     player2.moves = [];
     //console.log(currentPlayer.getScore());
-    displayGame({ board, getCurrentPlayer, makeMove, player1, player2 });  // Pass required parts of game
+    displayGame({ board, getCurrentPlayer, makeMove, resetGame, player1, player2 });  // Pass required parts of game
     currentPlayer = player1;
     displayPlayer(currentPlayer);
+    //displayBoardSelector(x);
   }
 
 resetGame(3, 3);
@@ -161,8 +162,6 @@ function displayGame(game) {
     if (initialRun) {
         const changeNames = document.querySelectorAll(".changeName");
         changeNames.forEach(changeName => changeName.addEventListener("click", event => {
-    
-            
         
             const player = changeName.dataset.player;
             const newName = prompt("Enter new name");
@@ -173,9 +172,23 @@ function displayGame(game) {
             const playerDivText = playerDiv.querySelector("span");    
             playerDivText.textContent = newName.slice(0, 10);
            
-    
+            
+                
+            
+            
         
         }));
+        let currentSize = 3;
+        const sizeSelectors = document.querySelectorAll(".sizeSelector");
+                console.log(sizeSelectors);
+                sizeSelectors.forEach(sizeSelector => {
+                    sizeSelector.addEventListener("click", event => {
+                        const size =  sizeSelector.dataset.size;
+                        game.resetGame(size, size);
+                        underlineSize(currentSize, size);
+                        currentSize = size;
+                    })
+                });
         initialRun = false;
     }
   
@@ -239,11 +252,23 @@ function displayPlayer(player){
     previousUnderline.classList.remove("animate-draw");
     previousUnderline.style.opacity = 0;
     underline.classList.add("animate-draw");
-
     console.log(underline);
     underline.style.opacity = 1;
     //console.log(activePlayer);
    // activePlayer.classList.add("animate-draw");
 }
+
+function underlineSize(currentSize, newSize){
+    const currentSizeSelector = document.querySelector(`[data-size = "${currentSize}"]`);
+    const currentUnderline = currentSizeSelector.querySelector(".underline-svg-bot");
+    currentUnderline.classList.remove("animate-draw");
+    currentUnderline.style.opacity = 0;
+    console.log(currentUnderline);
+   console.log(currentSizeSelector);
+    const newSizeSelector = document.querySelector(`[data-size = "${newSize}"]`);
+    currentSizeSelector.querySelector(".underline-svg-bot").classList.add("animate-draw");
+    currentSizeSelector.querySelector(".underline-svg-bot").style.opacity = 1;
+}
+
 playGame();
 //displayGame(game);
