@@ -69,7 +69,6 @@ function playGame(x, y){
 
     
        function checkWin(x, y, player){
-        console.log(board.rows);
   //old checkWin function. on a 3x3 board, it for each of max 5 player moves checks agaisnt the other thus max 5 player moves  max four win conditions with two find calls perr check. Thus, max 8 × 5 × 5 = 200 checks
   //the new, alternative wincondition meanwhile has 10 winning patterns with 3 coordinates per pattern which it checks against max 5 player moves. Thus, max 10 × 3 × 5 = 150 checks
   //moreover, if expanding the board, the number of checks increase only linearly compared to function 1.
@@ -276,8 +275,6 @@ function displayPlayer(player){
     previousUnderline.style.opacity = 0;
     underline.classList.add("animate-draw");
     underline.style.opacity = 1;
-    //console.log(activePlayer);
-   // activePlayer.classList.add("animate-draw");
 }
 
 function displayMessage(player, status){
