@@ -1,10 +1,7 @@
 
 //fix display of larger boards by finding relative value for cell fonts, 
-//Add win message and delay on board reset
-//add draw message and reset
-//check score remains correct when board is reset midgame by selecting different board
+
 //fix scoring (currently seem to misassign some scores)
-//add light animation on boardreset?
 //will need to add 4 in a row logic to 5 and 7 boards
 
 const gameboard = (function() {
@@ -93,6 +90,7 @@ function playGame(x, y){
 
     
        function checkWin(x, y, player){
+        console.log(board.rows);
   //old checkWin function. on a 3x3 board, it for each of max 5 player moves checks agaisnt the other thus max 5 player moves  max four win conditions with two find calls perr check. Thus, max 8 × 5 × 5 = 200 checks
   //the new, alternative wincondition meanwhile has 10 winning patterns with 3 coordinates per pattern which it checks against max 5 player moves. Thus, max 10 × 3 × 5 = 150 checks
   //moreover, if expanding the board, the number of checks increase only linearly compared to function 1.
@@ -113,7 +111,8 @@ function playGame(x, y){
         
         });    */
 //add guarding statement checking for not draw if some cell state == 0;
-        const winningPatterns = [
+        let winningPatterns;
+        const winningPatterns3 = [
             //horizontal
             [{dx: 0, dy: 0}, {dx: 1, dy: 0}, {dx: 2, dy: 0}],
             [{dx: -1, dy: 0}, {dx: 0, dy: 0}, {dx: 1, dy: 0}],
@@ -131,7 +130,37 @@ function playGame(x, y){
             [{dx: 0, dy: 0}, {dx: 1, dy: -1}, {dx: 2, dy: -2}],
             [{dx: 0, dy: 0}, {dx: -1, dy: 1}, {dx: -2, dy: 2}]
         ];
+        const winningPatterns4 = [
+            // horizontal
+            [{dx: 0, dy: 0}, {dx: 1, dy: 0}, {dx: 2, dy: 0}, {dx: 3, dy: 0}],
+            [{dx: -1, dy: 0}, {dx: 0, dy: 0}, {dx: 1, dy: 0}, {dx: 2, dy: 0}],
+            [{dx: -2, dy: 0}, {dx: -1, dy: 0}, {dx: 0, dy: 0}, {dx: 1, dy: 0}],
+            [{dx: -3, dy: 0}, {dx: -2, dy: 0}, {dx: -1, dy: 0}, {dx: 0, dy: 0}],
+        
+            // vertical
+            [{dx: 0, dy: 0}, {dx: 0, dy: 1}, {dx: 0, dy: 2}, {dx: 0, dy: 3}],
+            [{dx: 0, dy: -1}, {dx: 0, dy: 0}, {dx: 0, dy: 1}, {dx: 0, dy: 2}],
+            [{dx: 0, dy: -2}, {dx: 0, dy: -1}, {dx: 0, dy: 0}, {dx: 0, dy: 1}],
+            [{dx: 0, dy: -3}, {dx: 0, dy: -2}, {dx: 0, dy: -1}, {dx: 0, dy: 0}],
+        
+            // diagonal right
+            [{dx: 0, dy: 0}, {dx: 1, dy: 1}, {dx: 2, dy: 2}, {dx: 3, dy: 3}],
+            [{dx: -1, dy: -1}, {dx: 0, dy: 0}, {dx: 1, dy: 1}, {dx: 2, dy: 2}],
+            [{dx: -2, dy: -2}, {dx: -1, dy: -1}, {dx: 0, dy: 0}, {dx: 1, dy: 1}],
+            [{dx: -3, dy: -3}, {dx: -2, dy: -2}, {dx: -1, dy: -1}, {dx: 0, dy: 0}],
+        
+            // diagonal left
+            [{dx: 0, dy: 0}, {dx: 1, dy: -1}, {dx: 2, dy: -2}, {dx: 3, dy: -3}],
+            [{dx: -1, dy: 1}, {dx: 0, dy: 0}, {dx: 1, dy: -1}, {dx: 2, dy: -2}],
+            [{dx: -2, dy: 2}, {dx: -1, dy: 1}, {dx: 0, dy: 0}, {dx: 1, dy: -1}],
+            [{dx: -3, dy: 3}, {dx: -2, dy: 2}, {dx: -1, dy: 1}, {dx: 0, dy: 0}]
+        ];
 
+        if (board.rows === 3){
+            winningPatterns = winningPatterns3;
+        } else {
+            winningPatterns = winningPatterns4;
+        }
         return winningPatterns.some(pattern => {
             return pattern.every(position => {
                 const checkX = x + position.dx;
