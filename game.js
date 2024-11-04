@@ -76,7 +76,6 @@ function playGame(x, y){
             return;
         }
         if (Object.keys(board.coordinates).every(key => board.coordinates[key].state == 1)){
-            alert("draw");
             displayMessage(currentPlayer.name, 0);
             resetGame(3, 3);
             return;
@@ -286,7 +285,7 @@ function displayMessage(player, status){
         popupText.textContent = `${player} wins!`;
     }
 
-    popup.style.display = "block";
+    popup.style.display = "flex";
     //underlineSize(sizeSelectors, 3);
 }
 
