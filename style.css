@@ -206,8 +206,16 @@ a {
   position: relative;
   padding: 0;
   line-height: 1.2;
+
+  cursor: pointer;
+}
+.sizeSelector:hover {
+  background-color: rgba(10, 10, 10, 0.15);
 }
 
+.sizeSelector:active {
+  background-color: rgba(14, 14, 14, 0.3);
+}
 .underline-svg-bot {
   position: absolute;
   bottom: -0.1vh; 
