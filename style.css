@@ -40,8 +40,7 @@ position: relative;
 }
 
 .header{
-  /* display: flex;
-  flex-direction: row; */
+
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 2fr;
   grid-template-rows: 1fr 0.5fr;
@@ -190,7 +189,7 @@ position: relative;
 
 
 .rules {
-  text-align: center; /* Centers text within the .rules element */
+  text-align: center; 
 }
 .boardSize {
   display: flex;
