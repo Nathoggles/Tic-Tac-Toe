@@ -16,7 +16,7 @@
 
 :root{
   font-family: "Caveat", "Handlee", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --base-size: clamp(1rem, 1rem + 1vw, 3.2rem);
+  --base-size: clamp(1rem, 1rem + 0.8vw, 3.2rem);
   position: relative;
 
 }
@@ -180,24 +180,33 @@ position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
+  gap: 5%;
   width: 70%;
   margin-top: 2vh;
   height: 7vh;
-  font-size: calc(var(--base-size) * 1.7);
+  font-size: calc(var(--base-size) * 1.5);
 }
 
+
+.rules {
+  text-align: center; /* Centers text within the .rules element */
+}
 .boardSize {
   display: flex;
   flex-direction: row;
   align-items: center;
  
   gap: 2vw;
-  margin-right: auto;
+  min-width: 30%;
+  
 }
 
 .signature {
-  margin-left: auto;
-  font-size: var(--base-size)
+
+  font-size: var(--base-size);
+  min-width: 30%;
+  text-align: right;
 }
 
 a {
@@ -207,7 +216,6 @@ a {
 .wincon{
   font-size: calc(var(--base-size) * 2.3);
   font-weight: 600;
-  text-decoration: und;
 }
 .sizeSelector
 {

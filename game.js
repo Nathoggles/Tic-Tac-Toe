@@ -1,9 +1,3 @@
-
-//fix display of larger boards by finding relative value for cell fonts, 
-
-//fix scoring (currently seem to misassign some scores)
-//will need to add 4 in a row logic to 5 and 7 boards
-
 const gameboard = (function() {
     const makeBoard = (x, y) => {
     const rows = x;
@@ -21,14 +15,10 @@ const gameboard = (function() {
 })();
 
 
-
-/* console.log(gameboard.makeBoard(3, 3)); */
-
 let initialRun = true;
 
 function playGame(x, y){
     let board = gameboard.makeBoard(3,3);
-    /* console.log(board); */
     
     function MakePlayer(name){
         let score = 0;
@@ -52,20 +42,10 @@ function playGame(x, y){
 
 
     function makeMove(x, y){
-        //console.log(board);
         x = parseInt(x);
         y = parseInt(y);
         board.coordinates[`x${x}y${y}`].state = 1;
         currentPlayer.moves.push({x, y});
-       // console.table(currentPlayer.moves);
-       // alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
-        //console.log(board[`x${x}y${y}`]);
-        //console.table(currentPlayer.moves);
-       /*  if (board.coordinates.every((coord) => coord.state == 1)){
-            displayMessage(currentPlayer.name, 0);
-            return;
-        }  */
-
         if (checkWin(x, y, currentPlayer)){
             currentPlayer.upScore();
             displayMessage(currentPlayer.name, 1);
@@ -83,7 +63,6 @@ function playGame(x, y){
     function switchPlayer(){
         currentPlayer == player1 ? currentPlayer = player2 : currentPlayer = player1; 
         displayPlayer(currentPlayer);
-/*         console.log(currentPlayer); */
         }
 
 
@@ -110,7 +89,6 @@ function playGame(x, y){
         }
         
         });    */
-//add guarding statement checking for not draw if some cell state == 0;
         let winningPatterns;
         const winningPatterns3 = [
             //horizontal
@@ -174,11 +152,9 @@ function playGame(x, y){
     board = gameboard.makeBoard(x,y);
     player1.moves = [];
     player2.moves = [];
-    //console.log(currentPlayer.getScore());
-    displayGame({ board, getCurrentPlayer, makeMove, resetGame, player1, player2 });  // Pass required parts of game
+    displayGame({ board, getCurrentPlayer, makeMove, resetGame, player1, player2 }); 
     currentPlayer = player1;
     displayPlayer(currentPlayer);
-    //displayBoardSelector(x);
   }
 
 resetGame(3, 3);
