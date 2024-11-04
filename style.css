@@ -17,6 +17,7 @@
 :root{
   font-family: "Caveat", "Handlee", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --base-size: clamp(1rem, 1rem + 1vw, 3.2rem);
+  position: relative;
 
 }
 
@@ -33,6 +34,8 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+
+position: relative;
 
 }
 
@@ -204,8 +207,9 @@ a {
 .sizeSelector
 {
   position: relative;
-  padding: 0;
-  line-height: 1.2;
+  padding: 0.5rem;
+  line-height: 1;
+  border-radius: 0.5rem;
 
   cursor: pointer;
 }
@@ -228,4 +232,55 @@ a {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
 
+}
+
+.popup {
+  position: fixed;
+  width: 50%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+
+
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+
+  
+}
+
+.restartButton {
+  position: relative;
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: black;
+  font-size: calc(var(--base-size) * 1.4);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.restartButton:hover{
+  background-color: rgba(206, 206, 206, 0.425);
+}
+
+.restartButton:active{
+  background-color: rgba(14, 14, 14, 0.3);
+}
+.underline-svg-button {
+  position: absolute;
+  bottom: -0.1vh; 
+  left: 0;
+  width: 100%; /* Ensures the SVG stretches to the width of the text */
+  height: auto; /* Maintain aspect ratio */
+  
+}
+
+.underline-svg-button path {
+  stroke-dashoffset: 0;
 }
