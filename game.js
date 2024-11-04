@@ -257,6 +257,7 @@ function displayGame(game) {
 
         const grid = document.querySelector(".board");
         grid.style.gridTemplateColumns = `repeat(${board.columns}, 1fr)`;
+        grid.style.setProperty("--grid-size", board.columns);
 
         Object.keys(board.coordinates).forEach((key) => {
             const cellButton = document.createElement("button");

@@ -121,14 +121,16 @@ position: relative;
 
 
 .board {
-  width: min(50vw, 70vh);
+  width: clamp(350px, 60vw, 70vh);
   aspect-ratio: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   position: relative;
   background: transparent;
 
+  --grid-size: 3;
 
+  
 
 }
 
@@ -142,12 +144,8 @@ position: relative;
   align-items: center;
   justify-content: center;
   position: relative;
- /*  font-size: calc(var(--base-size) * 5);
- */
 
-font-size: 2em;
-
-  position: relative;
+  font-size: calc(60vmin / var(--grid-size) * 0.7);
 
 }
 
