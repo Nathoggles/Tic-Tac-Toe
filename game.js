@@ -329,6 +329,15 @@ function underlineSize(sizeSelectors, newSize){
     const newUnderline = newSizeSelector.querySelector(".underline-svg-bot");
     newUnderline.classList.add("animate-draw");
     newUnderline.style.opacity = 1;
+
+    const wincon = document.querySelector(".wincon");
+    if (newSize == 3) {
+        wincon.textContent = "3";
+    }
+    else {
+        wincon.textContent = "4";
+    }
+
 }
 
 playGame();
