@@ -64,10 +64,6 @@ function playGame(x, y){
         currentPlayer == player1 ? currentPlayer = player2 : currentPlayer = player1; 
         displayPlayer(currentPlayer);
         }
-
-
-
-    
        function checkWin(x, y, player){
   //old checkWin function. on a 3x3 board, it for each of max 5 player moves checks agaisnt the other thus max 5 player moves  max four win conditions with two find calls perr check. Thus, max 8 × 5 × 5 = 200 checks
   //the new, alternative wincondition meanwhile has 10 winning patterns with 3 coordinates per pattern which it checks against max 5 player moves. Thus, max 10 × 3 × 5 = 150 checks
@@ -170,12 +166,8 @@ return {
 }
 
 
-
-
 function displayGame(game) {
     const displayedBoard = document.querySelector(".board");
-
-    
     
     if (initialRun) {
         const changeNames = document.querySelectorAll(".changeName");
@@ -315,4 +307,4 @@ function underlineSize(sizeSelectors, newSize){
 }
 
 playGame();
-//displayGame(game);
+
