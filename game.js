@@ -64,10 +64,21 @@ function playGame(x, y){
        // alert(`${currentPlayer.name} chose ${currentPlayer.moves[currentPlayer.moves.length - 1].x} ${currentPlayer.moves[currentPlayer.moves.length - 1].y}`);
         //console.log(board[`x${x}y${y}`]);
         //console.table(currentPlayer.moves);
+       /*  if (board.coordinates.every((coord) => coord.state == 1)){
+            displayMessage(currentPlayer.name, 0);
+            return;
+        }  */
+
         if (checkWin(x, y, currentPlayer)){
-            alert(`${currentPlayer.name} has won!`);
             currentPlayer.upScore();
-            resetGame(3,3);
+            displayMessage(currentPlayer.name, 1);
+            resetGame(3, 3);
+            return;
+        }
+        if (Object.keys(board.coordinates).every(key => board.coordinates[key].state == 1)){
+            alert("draw");
+            displayMessage(currentPlayer.name, 0);
+            resetGame(3, 3);
             return;
         }
         switchPlayer();
@@ -160,6 +171,7 @@ return {
 
 function displayGame(game) {
     const displayedBoard = document.querySelector(".board");
+
     
     
     if (initialRun) {
@@ -173,12 +185,7 @@ function displayGame(game) {
            game[player].name = newName.slice(0, 10);
             const playerDiv = document.querySelector(`.${player}.player`);
             const playerDivText = playerDiv.querySelector("span");    
-            playerDivText.textContent = newName.slice(0, 10);
-           
-            
-                
-            
-            
+            playerDivText.textContent = newName.slice(0, 10);      
         
         }));
         const sizeSelectors = document.querySelectorAll(".sizeSelector");
@@ -189,7 +196,16 @@ function displayGame(game) {
                         underlineSize(sizeSelectors, size);
                     })
                 });
-            underlineSize(sizeSelectors, 3);
+
+            const restartButton = document.querySelector(".restartButton");
+            const popup = document.querySelector(".popup");
+                restartButton.addEventListener("click", event => {
+                    popup.style.display = "none";
+                   // game.resetGame(3, 3);
+                    underlineSize(sizeSelectors, 3);
+                    });
+
+        underlineSize(sizeSelectors, 3);
         initialRun = false;
     }
   
@@ -254,10 +270,24 @@ function displayPlayer(player){
     previousUnderline.classList.remove("animate-draw");
     previousUnderline.style.opacity = 0;
     underline.classList.add("animate-draw");
-    console.log(underline);
     underline.style.opacity = 1;
     //console.log(activePlayer);
    // activePlayer.classList.add("animate-draw");
+}
+
+function displayMessage(player, status){
+    const popup = document.querySelector(".popup");
+    const popupText = document.querySelector(".popupMessage");
+
+    if (status == 0) {
+        popupText.textContent = `It's a draw!`;
+    } else {
+        
+        popupText.textContent = `${player} wins!`;
+    }
+
+    popup.style.display = "block";
+    //underlineSize(sizeSelectors, 3);
 }
 
 function underlineSize(sizeSelectors, newSize){

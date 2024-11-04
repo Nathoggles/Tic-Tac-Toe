@@ -241,7 +241,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5%;
+  gap: 2%;
 
 
   background-color: white;
@@ -251,7 +251,9 @@ a {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 1000;
 
-  
+  font-size: calc(var(--base-size) * 1.4);
+
+  display: none;
 }
 
 .restartButton {
@@ -261,7 +263,7 @@ a {
   background: transparent;
   cursor: pointer;
   color: black;
-  font-size: calc(var(--base-size) * 1.4);
+
   padding: 1rem;
   border-radius: 1rem;
 }
